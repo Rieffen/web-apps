@@ -96,7 +96,7 @@ define([
                         if (left < 0) {
                             this.$boxTabs.scrollLeft(/*this.$boxTabs.scrollLeft() + */left - 26);
                         } else if (right > rightbound) {
-                            this.$boxTabs.scrollLeft(/*this.$boxTabs.scrollLeft() + */(right - rightbound) + 20);
+                            this.$boxTabs.scrollLeft(this.$boxTabs.scrollLeft() + (right - rightbound) + 20);
                         }
                     }
                 }
