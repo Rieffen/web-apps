@@ -69,14 +69,15 @@
         background-image: none;
 
         transition: transform 0.2s ease;
-        transform: rotate(-135deg) translate(1px,1px);
+        transform: rotate(-135deg) translate(0px, 0px);
+        margin-bottom: 3px;
     }
 
     //&:active,
     &:active:not(.disabled),
     &.active:not(.disabled){
         .caret {
-            transform: rotate(45deg);
+            transform: rotate(45deg) translate(1px, 1px);;
         }
     }
 
@@ -592,8 +593,8 @@
 .btn-color {
     width: 45px;
     height: 22px;
-    padding: @scaled-one-px-value-ie 11px @scaled-one-px-value-ie @scaled-one-px-value-ie;
-    padding: @scaled-one-px-value 11px @scaled-one-px-value @scaled-one-px-value;
+    padding: @scaled-one-px-value-ie 15px @scaled-one-px-value-ie @scaled-one-px-value-ie;
+    padding: @scaled-one-px-value 15px @scaled-one-px-value @scaled-one-px-value;
     border:@scaled-one-px-value-ie solid @border-regular-control-ie;
     border:@scaled-one-px-value solid @border-regular-control;
     .border-radius(@border-radius-small);
@@ -609,7 +610,7 @@
 
     .inner-box-caret {
         position: absolute;
-        right: 1px;
+        right: 2px;
         top: 2px;
     }
 
@@ -632,8 +633,8 @@
         &:before {
             border-right: @scaled-one-px-value-ie solid red;
             border-right: @scaled-one-px-value solid red;
-            height: 34px;
-            transform: translate(16px, -9px) rotate(62deg);
+            height: 30px;
+            transform: translate(14px, -7px) rotate(56deg);
             left: 0;
         }
     }
