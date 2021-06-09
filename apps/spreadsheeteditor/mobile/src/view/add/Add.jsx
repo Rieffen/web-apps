@@ -123,7 +123,7 @@ const AddTabs = props => {
             component: <AddImageController inTabs={true}/>
         });
     }
-    if (!showPanels) {
+    if (!showPanels || showPanels.indexOf('shape') > 0) {
         tabs.push({
             caption: _t.textOther,
             id: 'add-other',

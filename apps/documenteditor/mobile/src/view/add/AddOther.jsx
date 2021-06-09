@@ -153,33 +153,38 @@ const PageFootnote = props => {
 const AddOther = props => {
     const { t } = useTranslation();
     const _t = t('Add', {returnObjects: true});
+
+    const storeFocusObjects = props.storeFocusObjects;
+    let hideOther = storeFocusObjects.settings.indexOf('shape') > -1;
+    let hideOtherText = storeFocusObjects.settings.indexOf('text') > -1;
+
     return (
         <List>
-            <ListItem title={_t.textComment} onClick={() => {
+            {(!hideOther || hideOtherText)  && <ListItem title={_t.textComment} onClick={() => {
                 props.closeModal();
                 Common.Notifications.trigger('addcomment');
             }}>
                 <Icon slot="media" icon="icon-insert-comment"></Icon>
-            </ListItem>
-            <ListItem title={_t.textLink} link={'/add-link/'} routeProps={{
+            </ListItem>}
+            {(!hideOther || hideOtherText) && <ListItem title={_t.textLink} link={'/add-link/'} routeProps={{
                 onInsertLink: props.onInsertLink,
                 getDisplayLinkText: props.getDisplayLinkText
             }}>
                 <Icon slot="media" icon="icon-link"></Icon>
-            </ListItem>
+            </ListItem>}
             <ListItem title={_t.textPageNumber} link={'/add-page-number/'} routeProps={{
                 onInsertPageNumber: props.onInsertPageNumber
             }}>
                 <Icon slot="media" icon="icon-pagenumber"></Icon>
             </ListItem>
-            <ListItem title={_t.textBreak} link={'/add-break/'} routeProps={{
+            {!hideOther && <ListItem title={_t.textBreak} link={'/add-break/'} routeProps={{
                 onPageBreak: props.onPageBreak,
                 onColumnBreak: props.onColumnBreak,
                 onInsertSectionBreak: props.onInsertSectionBreak
             }}>
                 <Icon slot="media" icon="icon-sectionbreak"></Icon>
-            </ListItem>
-            <ListItem title={_t.textFootnote} link={'/add-footnote/'} routeProps={{
+            </ListItem>}
+            {!hideOther && <ListItem title={_t.textFootnote} link={'/add-footnote/'} routeProps={{
                 getFootnoteProps: props.getFootnoteProps,
                 getFootnoteStartAt: props.getFootnoteStartAt,
                 onFootnoteStartAt: props.onFootnoteStartAt,
@@ -187,12 +192,12 @@ const AddOther = props => {
                 initFootnoteStartAt: props.initFootnoteStartAt
             }}>
                 <Icon slot="media" icon="icon-footnote"></Icon>
-            </ListItem>
+            </ListItem>}
         </List>
     )
 };
 
-const AddOtherContainer = inject("storeComments")(observer(AddOther));
+const AddOtherContainer = inject("storeComments", "storeFocusObjects")(observer(AddOther));
 
 export {AddOtherContainer as AddOther,
         PageNumber as PageAddNumber,

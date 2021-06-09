@@ -81,25 +81,31 @@ const AddTabs = props => {
     const _t = t('Add', {returnObjects: true});
     const showPanels = props.showPanels;
     const tabs = [];
-    if (!showPanels) {
+    if (!showPanels || showPanels.indexOf('text') > -1) {
         tabs.push({
             caption: _t.textTable,
             id: 'add-table',
             icon: 'icon-add-table',
             component: <AddTableController/>
         });
+    }
+    if(!showPanels || showPanels.indexOf('shape') > -1) {
         tabs.push({
             caption: _t.textShape,
             id: 'add-shape',
             icon: 'icon-add-shape',
             component: <AddShapeController/>
         });
+    }
+    if(!showPanels || showPanels.indexOf('shape') > -1) {
         tabs.push({
             caption: _t.textImage,
             id: 'add-image',
             icon: 'icon-add-image',
             component: <AddImageController/>
         });
+    }
+    if(!showPanels || showPanels.indexOf('shape') > -1) {
         tabs.push({
             caption: _t.textOther,
             id: 'add-other',
@@ -107,7 +113,7 @@ const AddTabs = props => {
             component: <AddOtherController/>
         });
     }
-    if (showPanels && showPanels === 'link') {
+    if(showPanels && showPanels === 'link') {
         tabs.push({
             caption: _t.textAddLink,
             id: 'add-link',
@@ -163,7 +169,11 @@ const Add = props => {
         if ( props.onclosed )
             props.onclosed();
     };
-    return <AddView usePopover={!Device.phone} onclosed={onviewclosed} showPanels={props.showOptions} />
+
+    const storeFocusObjects = props.storeFocusObjects;
+    const options = storeFocusObjects.settings.indexOf('shape') > -1;
+
+    return <AddView usePopover={!Device.phone} onclosed={onviewclosed} showPanels={options ? storeFocusObjects.settings : undefined} />
 };
 
-export default Add;
+export default inject("storeFocusObjects")(observer(Add));
