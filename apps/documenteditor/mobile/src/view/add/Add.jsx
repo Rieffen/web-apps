@@ -76,12 +76,12 @@ const AddLayoutContent = ({ tabs }) => {
     )
 };
 
-const AddTabs = props => {
+const AddTabs = inject("storeFocusObjects")(observer(({storeFocusObjects, showPanels, style, inPopover}) => {
     const { t } = useTranslation();
     const _t = t('Add', {returnObjects: true});
-    const showPanels = props.showPanels;
     const tabs = [];
-    if (!showPanels || showPanels.indexOf('text') > -1) {
+    const options = storeFocusObjects.settings;
+    if (!showPanels && options.indexOf('text') > -1) {
         tabs.push({
             caption: _t.textTable,
             id: 'add-table',
@@ -89,7 +89,7 @@ const AddTabs = props => {
             component: <AddTableController/>
         });
     }
-    if(!showPanels || showPanels.indexOf('shape') > -1) {
+    if(!showPanels || options.indexOf('shape') > -1) {
         tabs.push({
             caption: _t.textShape,
             id: 'add-shape',
@@ -97,7 +97,7 @@ const AddTabs = props => {
             component: <AddShapeController/>
         });
     }
-    if(!showPanels || showPanels.indexOf('shape') > -1) {
+    if(!showPanels || options.indexOf('shape') > -1) {
         tabs.push({
             caption: _t.textImage,
             id: 'add-image',
@@ -105,7 +105,7 @@ const AddTabs = props => {
             component: <AddImageController/>
         });
     }
-    if(!showPanels || showPanels.indexOf('shape') > -1) {
+    if(!showPanels || options.indexOf('shape') > -1) {
         tabs.push({
             caption: _t.textOther,
             id: 'add-other',
@@ -121,14 +121,14 @@ const AddTabs = props => {
         });
     }
     return (
-        <View style={props.style} stackPages={true} routes={routes}>
+        <View style={style} stackPages={true} routes={routes}>
             <Page pageContent={false}>
-                <AddLayoutNavbar tabs={tabs} inPopover={props.inPopover}/>
+                <AddLayoutNavbar tabs={tabs} inPopover={inPopover}/>
                 <AddLayoutContent tabs={tabs} />
             </Page>
         </View>
     )
-};
+}));
 
 class AddView extends Component {
     constructor(props) {
@@ -169,11 +169,8 @@ const Add = props => {
         if ( props.onclosed )
             props.onclosed();
     };
-
-    const storeFocusObjects = props.storeFocusObjects;
-    const options = storeFocusObjects.settings.indexOf('shape') > -1;
-
-    return <AddView usePopover={!Device.phone} onclosed={onviewclosed} showPanels={options ? storeFocusObjects.settings : undefined} />
+    
+    return <AddView usePopover={!Device.phone} onclosed={onviewclosed} showPanels={props.showOptions}/>
 };
 
-export default inject("storeFocusObjects")(observer(Add));
+export default Add
