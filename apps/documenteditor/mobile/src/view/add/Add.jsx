@@ -89,7 +89,7 @@ const AddTabs = inject("storeFocusObjects")(observer(({storeFocusObjects, showPa
             component: <AddTableController/>
         });
     }
-    if(!showPanels || options.indexOf('shape') > -1) {
+    if(!showPanels) {
         tabs.push({
             caption: _t.textShape,
             id: 'add-shape',
@@ -97,7 +97,7 @@ const AddTabs = inject("storeFocusObjects")(observer(({storeFocusObjects, showPa
             component: <AddShapeController/>
         });
     }
-    if(!showPanels || options.indexOf('shape') > -1) {
+    if(!showPanels) {
         tabs.push({
             caption: _t.textImage,
             id: 'add-image',
@@ -105,7 +105,7 @@ const AddTabs = inject("storeFocusObjects")(observer(({storeFocusObjects, showPa
             component: <AddImageController/>
         });
     }
-    if(!showPanels || options.indexOf('shape') > -1) {
+    if(!showPanels) {
         tabs.push({
             caption: _t.textOther,
             id: 'add-other',

@@ -160,13 +160,13 @@ const AddOther = props => {
 
     return (
         <List>
-            {(!hideOther || hideOtherText)  && <ListItem title={_t.textComment} onClick={() => {
+            {hideOtherText  && <ListItem title={_t.textComment} onClick={() => {
                 props.closeModal();
                 Common.Notifications.trigger('addcomment');
             }}>
                 <Icon slot="media" icon="icon-insert-comment"></Icon>
             </ListItem>}
-            {(!hideOther || hideOtherText) && <ListItem title={_t.textLink} link={'/add-link/'} routeProps={{
+            {hideOtherText && <ListItem title={_t.textLink} link={'/add-link/'} routeProps={{
                 onInsertLink: props.onInsertLink,
                 getDisplayLinkText: props.getDisplayLinkText
             }}>
