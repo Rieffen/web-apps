@@ -155,19 +155,19 @@ const AddOther = props => {
     const _t = t('Add', {returnObjects: true});
 
     const storeFocusObjects = props.storeFocusObjects;
-    let hideOther = storeFocusObjects.settings.indexOf('shape') > -1,
-        hideOtherText = storeFocusObjects.settings.indexOf('text') > -1,
-        hideOtherChart = storeFocusObjects.settings.indexOf('chart') > -1;
+    let isShape = storeFocusObjects.settings.indexOf('shape') > -1,
+        isText = storeFocusObjects.settings.indexOf('text') > -1,
+        isChart = storeFocusObjects.settings.indexOf('chart') > -1;
 
     return (
         <List>
-            {hideOtherText  && <ListItem title={_t.textComment} onClick={() => {
+            {isText  && <ListItem title={_t.textComment} onClick={() => {
                 props.closeModal();
                 Common.Notifications.trigger('addcomment');
             }}>
                 <Icon slot="media" icon="icon-insert-comment"></Icon>
             </ListItem>}
-            {hideOtherText && <ListItem title={_t.textLink} link={'/add-link/'} routeProps={{
+            {isText && <ListItem title={_t.textLink} link={'/add-link/'} routeProps={{
                 onInsertLink: props.onInsertLink,
                 getDisplayLinkText: props.getDisplayLinkText
             }}>
@@ -178,22 +178,25 @@ const AddOther = props => {
             }}>
                 <Icon slot="media" icon="icon-pagenumber"></Icon>
             </ListItem>
-            {(!hideOther ? !hideOtherChart : false) && <ListItem title={_t.textBreak} link={'/add-break/'} routeProps={{
-                onPageBreak: props.onPageBreak,
-                onColumnBreak: props.onColumnBreak,
-                onInsertSectionBreak: props.onInsertSectionBreak
-            }}>
-                <Icon slot="media" icon="icon-sectionbreak"></Icon>
-            </ListItem>}
-            {(!hideOther ? !hideOtherChart : false) && <ListItem title={_t.textFootnote} link={'/add-footnote/'} routeProps={{
-                getFootnoteProps: props.getFootnoteProps,
-                getFootnoteStartAt: props.getFootnoteStartAt,
-                onFootnoteStartAt: props.onFootnoteStartAt,
-                onInsertFootnote: props.onInsertFootnote,
-                initFootnoteStartAt: props.initFootnoteStartAt
-            }}>
-                <Icon slot="media" icon="icon-footnote"></Icon>
-            </ListItem>}
+            {(isShape || isChart) ? null :
+                <ListItem title={_t.textBreak} link={'/add-break/'} routeProps={{
+                    onPageBreak: props.onPageBreak,
+                    onColumnBreak: props.onColumnBreak,
+                    onInsertSectionBreak: props.onInsertSectionBreak
+                }}>
+                    <Icon slot="media" icon="icon-sectionbreak"></Icon>
+                </ListItem>
+            }
+            {(isShape || isChart) ? null : 
+                <ListItem title={_t.textFootnote} link={'/add-footnote/'} routeProps={{
+                    getFootnoteProps: props.getFootnoteProps,
+                    getFootnoteStartAt: props.getFootnoteStartAt,
+                    onFootnoteStartAt: props.onFootnoteStartAt,
+                    onInsertFootnote: props.onInsertFootnote,
+                    initFootnoteStartAt: props.initFootnoteStartAt
+                }}>
+                    <Icon slot="media" icon="icon-footnote"></Icon>
+                </ListItem>}
         </List>
     )
 };
