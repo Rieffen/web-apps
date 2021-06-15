@@ -155,8 +155,9 @@ const AddOther = props => {
     const _t = t('Add', {returnObjects: true});
 
     const storeFocusObjects = props.storeFocusObjects;
-    let hideOther = storeFocusObjects.settings.indexOf('shape') > -1;
-    let hideOtherText = storeFocusObjects.settings.indexOf('text') > -1;
+    let hideOther = storeFocusObjects.settings.indexOf('shape') > -1,
+        hideOtherText = storeFocusObjects.settings.indexOf('text') > -1,
+        hideOtherChart = storeFocusObjects.settings.indexOf('chart') > -1;
 
     return (
         <List>
@@ -177,14 +178,14 @@ const AddOther = props => {
             }}>
                 <Icon slot="media" icon="icon-pagenumber"></Icon>
             </ListItem>
-            {!hideOther && <ListItem title={_t.textBreak} link={'/add-break/'} routeProps={{
+            {(!hideOther ? !hideOtherChart : false) && <ListItem title={_t.textBreak} link={'/add-break/'} routeProps={{
                 onPageBreak: props.onPageBreak,
                 onColumnBreak: props.onColumnBreak,
                 onInsertSectionBreak: props.onInsertSectionBreak
             }}>
                 <Icon slot="media" icon="icon-sectionbreak"></Icon>
             </ListItem>}
-            {!hideOther && <ListItem title={_t.textFootnote} link={'/add-footnote/'} routeProps={{
+            {(!hideOther ? !hideOtherChart : false) && <ListItem title={_t.textFootnote} link={'/add-footnote/'} routeProps={{
                 getFootnoteProps: props.getFootnoteProps,
                 getFootnoteStartAt: props.getFootnoteStartAt,
                 onFootnoteStartAt: props.onFootnoteStartAt,
