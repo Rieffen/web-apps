@@ -504,9 +504,11 @@ const EditShape = props => {
     const { t } = useTranslation();
     const _t = t('Edit', {returnObjects: true});
     const canFill = props.storeFocusObjects.shapeObject.get_ShapeProperties().get_CanFill();
-    const storeShapeSettings = props.storeShapeSettings;
-    const shapeObject = props.storeFocusObjects.shapeObject;
-    const wrapType = storeShapeSettings.getWrapType(shapeObject);
+
+    const storeShapeSettings = props.storeShapeSettings,
+          shapeObject = props.storeFocusObjects.shapeObject,
+          imageObject = props.storeFocusObjects.imageObject,
+          wrapType = storeShapeSettings.getWrapType(shapeObject || imageObject);
     
     let disableRemove = !!props.storeFocusObjects.paragraphObject;
 
@@ -535,9 +537,9 @@ const EditShape = props => {
                 <ListItem title={_t.textReplace} link='/edit-shape-replace/' routeProps={{
                     onReplace: props.onReplace
                 }}></ListItem>
-                <ListItem disabled={wrapType === 'inline' ? true : false } title={_t.textReorder} link='/edit-shape-reorder/' routeProps={{
+                {!(wrapType === 'inline') && <ListItem title={_t.textReorder} link='/edit-shape-reorder/' routeProps={{
                     onReorder: props.onReorder
-                }}></ListItem>
+                }}></ListItem>}
             </List>
             <List className="buttons-list">
                 <ListButton title={_t.textRemoveShape} onClick={() => {props.onRemoveShape()}} className={`button-red button-fill button-raised${disableRemove ? ' disabled' : ''}`} />
